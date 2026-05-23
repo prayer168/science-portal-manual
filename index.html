@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑熊老師自然科學數位教材中心 · 使用手冊</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Syne:wght@700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060810;
+  --bg2: #0c0f1a;
+  --bg3: #0f1422;
+  --border: rgba(255,255,255,0.08);
+  --text: #ffffff;
+  --text2: #dde3f5;
+  --text3: #7a84a8;
+  --green: #3dffa0;
+  --yellow: #ffcc44;
+  --blue: #6ab8ff;
+  --pink: #ff6b9d;
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text2);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* ── Layout ── */
+.layout { display: flex; min-height: 100vh; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  padding: 28px 0;
+}
+.sidebar-logo {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.sidebar-logo .bear { font-size: 28px; display: block; margin-bottom: 4px; }
+.sidebar-logo h1 { font-family: 'Syne', sans-serif; font-size: 13px; color: var(--green); line-height: 1.4; }
+.sidebar-logo p { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+.nav-section { padding: 0 12px; margin-bottom: 4px; }
+.nav-label { font-size: 10px; font-weight: 700; color: var(--text3); letter-spacing: 2px; text-transform: uppercase; padding: 10px 8px 4px; }
+.nav-item {
+  display: block; padding: 7px 12px; border-radius: 8px;
+  color: var(--text3); font-size: 13px; text-decoration: none;
+  transition: all 0.15s; cursor: pointer;
+}
+.nav-item:hover, .nav-item.active { background: rgba(61,255,160,0.08); color: var(--green); }
+.nav-item .num { float: right; font-size: 11px; font-family: 'IBM Plex Mono', monospace; opacity: 0.6; }
+
+/* ── Main ── */
+.main { flex: 1; max-width: 860px; padding: 48px 52px; }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(135deg, #0f1a2e 0%, #0a1628 100%);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 44px;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(61,255,160,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag { font-size: 11px; font-family: 'IBM Plex Mono', monospace; color: var(--green); letter-spacing: 2px; margin-bottom: 12px; }
+.hero h2 { font-family: 'Syne', sans-serif; font-size: 28px; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+.hero p { color: var(--text3); font-size: 14px; max-width: 480px; }
+.hero-meta { display: flex; gap: 20px; margin-top: 24px; flex-wrap: wrap; }
+.hero-badge {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; font-family: 'IBM Plex Mono', monospace;
+  color: var(--text3); background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px;
+}
+.hero-badge span { color: var(--blue); }
+
+/* ── Section ── */
+.section { margin-bottom: 56px; scroll-margin-top: 24px; }
+.section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.section-num {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  color: var(--bg); background: var(--green);
+  padding: 3px 8px; border-radius: 4px; font-weight: 500; flex-shrink: 0;
+}
+.section-num.yellow { background: var(--yellow); }
+.section-num.blue { background: var(--blue); }
+.section-num.pink { background: var(--pink); }
+.section h2 { font-family: 'Syne', sans-serif; font-size: 20px; color: var(--text); }
+
+/* ── Step cards ── */
+.steps { display: flex; flex-direction: column; gap: 12px; }
+.step {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px 20px;
+  transition: border-color 0.2s;
+}
+.step:hover { border-color: rgba(61,255,160,0.2); }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(61,255,160,0.1); border: 1px solid rgba(61,255,160,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--green);
+  flex-shrink: 0; margin-top: 1px;
+}
+.step-num.y { background: rgba(255,204,68,0.1); border-color: rgba(255,204,68,0.3); color: var(--yellow); }
+.step-num.b { background: rgba(106,184,255,0.1); border-color: rgba(106,184,255,0.3); color: var(--blue); }
+.step-content h3 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.step-content p { font-size: 13px; color: var(--text3); line-height: 1.7; }
+.step-content .tag {
+  display: inline-block; font-size: 11px; font-family: 'IBM Plex Mono', monospace;
+  background: rgba(106,184,255,0.1); color: var(--blue);
+  border: 1px solid rgba(106,184,255,0.2); border-radius: 4px;
+  padding: 1px 7px; margin-top: 6px;
+}
+
+/* ── Feature grid ── */
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.feature-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px 20px;
+  transition: all 0.2s;
+}
+.feature-card:hover { border-color: rgba(106,184,255,0.25); transform: translateY(-2px); }
+.feature-icon { font-size: 24px; margin-bottom: 10px; }
+.feature-card h3 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.feature-card p { font-size: 12px; color: var(--text3); line-height: 1.6; }
+
+/* ── Warning / tip box ── */
+.tip-box {
+  border-radius: var(--radius); padding: 16px 20px; margin: 16px 0;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.tip-box.green { background: rgba(61,255,160,0.06); border: 1px solid rgba(61,255,160,0.15); }
+.tip-box.yellow { background: rgba(255,204,68,0.06); border: 1px solid rgba(255,204,68,0.15); }
+.tip-box.red { background: rgba(255,107,157,0.06); border: 1px solid rgba(255,107,157,0.15); }
+.tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.tip-box p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.tip-box strong { color: var(--text); }
+
+/* ── Table ── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th {
+  background: var(--bg3); color: var(--text3); font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace; letter-spacing: 1px; text-transform: uppercase;
+  padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border);
+}
+.data-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); color: var(--text2); }
+.data-table tr:nth-child(even) td { background: var(--bg3); }
+.data-table tr:last-child td { border-bottom: none; }
+.pill {
+  display: inline-block; font-size: 11px; font-family: 'IBM Plex Mono', monospace;
+  padding: 2px 8px; border-radius: 4px;
+}
+.pill.g { background: rgba(61,255,160,0.12); color: var(--green); }
+.pill.y { background: rgba(255,204,68,0.12); color: var(--yellow); }
+.pill.b { background: rgba(106,184,255,0.12); color: var(--blue); }
+
+/* ── Kbd ── */
+kbd {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  background: var(--bg3); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px; padding: 2px 7px; color: var(--text2);
+}
+
+/* ── Divider ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* ── Footer ── */
+.manual-footer {
+  margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text3); text-align: center;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { padding: 28px 20px; }
+  .hero { padding: 24px 20px; }
+  .hero h2 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <span class="bear">🐻</span>
+    <h1>黑熊老師<br>數位教材中心</h1>
+    <p>使用手冊 v1.0</p>
+  </div>
+  <nav>
+    <div class="nav-section">
+      <div class="nav-label">入門</div>
+      <a class="nav-item active" href="#intro">關於本網站</a>
+      <a class="nav-item" href="#browse">瀏覽教材</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">後台管理</div>
+      <a class="nav-item" href="#login">管理員登入</a>
+      <a class="nav-item" href="#add">新增教材</a>
+      <a class="nav-item" href="#edit">編輯與刪除</a>
+      <a class="nav-item" href="#batch">批次操作</a>
+      <a class="nav-item" href="#category">類別管理</a>
+      <a class="nav-item" href="#export">匯出備份</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">注意事項</div>
+      <a class="nav-item" href="#tips">維護須知</a>
+      <a class="nav-item" href="#contact">聯絡資訊</a>
+    </div>
+  </nav>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main">
+
+  <!-- Hero -->
+  <div class="hero" id="intro">
+    <div class="hero-tag">// USER MANUAL v1.0</div>
+    <h2>🐻 黑熊老師自然科學<br>數位教材中心 使用手冊</h2>
+    <p>本手冊說明網站的瀏覽操作方式，以及管理員後台的完整功能，包含教材管理、類別設定與資料備份。</p>
+    <div class="hero-meta">
+      <div class="hero-badge">設計者 <span>陳賢宗（黑熊老師）</span></div>
+      <div class="hero-badge">版本 <span>2026.05</span></div>
+      <div class="hero-badge">教材數 <span>62 筆</span></div>
+    </div>
+  </div>
+
+  <!-- 1. 瀏覽教材 -->
+  <section class="section" id="browse">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>瀏覽教材</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📂</div>
+        <h3>分類分頁</h3>
+        <p>左側或上方分類目錄，點擊即可切換年級或主題，快速找到所需教材。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">↗</div>
+        <h3>開啟教材</h3>
+        <p>點擊任一教材卡片，即在新分頁開啟對應的互動教材網頁。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✨</div>
+        <h3>Hover 互動效果</h3>
+        <p>滑鼠移到教材方塊時，會有反白、晃動動畫，並播放滑動音效。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔊</div>
+        <h3>音效說明</h3>
+        <p>首次使用音效前，需先在頁面任意點擊一次，以符合瀏覽器安全規定。</p>
+      </div>
+    </div>
+
+    <div class="tip-box green" style="margin-top:16px;">
+      <span class="tip-icon">💡</span>
+      <p>右側欄位為<strong>目錄快速跳轉</strong>，顯示各類別名稱與教材數量，點擊可直接跳到該類別區塊。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 2. 管理員登入 -->
+  <section class="section" id="login">
+    <div class="section-header">
+      <span class="section-num yellow">02</span>
+      <h2>管理員登入</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num y">1</div>
+        <div class="step-content">
+          <h3>點擊「⚙️ 管理教材」按鈕</h3>
+          <p>位於網站右上角，點擊後會彈出 Google 登入視窗。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num y">2</div>
+        <div class="step-content">
+          <h3>使用指定 Google 帳號登入</h3>
+          <p>僅 <code style="font-family:'IBM Plex Mono';font-size:12px;background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:4px;">prayer168@gmail.com</code> 可進入管理後台，其他帳號會顯示無權限提示。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num y">3</div>
+        <div class="step-content">
+          <h3>登入成功後展開管理面板</h3>
+          <p>右上角顯示頭像與「登出」按鈕，管理面板在教材列表上方展開。</p>
+          <span class="tag">同步狀態：☁️ 已同步 表示資料已儲存至雲端</span>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box yellow" style="margin-top:16px;">
+      <span class="tip-icon">⚠️</span>
+      <p><strong>注意：</strong>管理功能僅限授權帳號使用。登出前請確認所有變更均已同步（顯示「☁️ 已同步」）。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 3. 新增教材 -->
+  <section class="section" id="add">
+    <div class="section-header">
+      <span class="section-num yellow">03</span>
+      <h2>新增教材</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num y">1</div>
+        <div class="step-content">
+          <h3>選擇年級 / 類別</h3>
+          <p>從「年級 / 類別」下拉選單選擇要放入的分類。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num y">2</div>
+        <div class="step-content">
+          <h3>填寫教材名稱</h3>
+          <p>輸入教材的顯示名稱，建議簡潔易懂，例如「光合作用 Dashboard」。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num y">3</div>
+        <div class="step-content">
+          <h3>填寫網址</h3>
+          <p>貼上教材的完整網址，需以 <code style="font-family:'IBM Plex Mono';font-size:12px;background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:4px;">https://</code> 開頭。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num y">4</div>
+        <div class="step-content">
+          <h3>點擊「新增 ＋」</h3>
+          <p>新增成功後顯示「✅ 已新增！」提示，資料自動同步至 Firestore 雲端。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 4. 編輯與刪除 -->
+  <section class="section" id="edit">
+    <div class="section-header">
+      <span class="section-num yellow">04</span>
+      <h2>編輯與刪除教材</h2>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>操作</th>
+          <th>方式</th>
+          <th>說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill g">重新命名</span></td>
+          <td>點擊教材列的「✏ 編輯」</td>
+          <td>名稱欄位變成輸入框，修改後按 Enter 或點「✔」確認</td>
+        </tr>
+        <tr>
+          <td><span class="pill y">移動類別</span></td>
+          <td>點擊「移動」下拉選單</td>
+          <td>選擇目標類別後即時移動，自動同步雲端</td>
+        </tr>
+        <tr>
+          <td><span class="pill" style="background:rgba(255,107,157,0.12);color:#ff6b9d;">刪除</span></td>
+          <td>點擊「🗑 刪除」按鈕</td>
+          <td>刪除前會彈出確認對話框，確認後無法復原</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tip-box red" style="margin-top:16px;">
+      <span class="tip-icon">🚨</span>
+      <p><strong>刪除前請務必備份！</strong>點擊「📋 匯出資料」複製 JSON 後貼給 Claude 保存，以便日後還原。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 5. 批次操作 -->
+  <section class="section" id="batch">
+    <div class="section-header">
+      <span class="section-num yellow">05</span>
+      <h2>批次操作</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num y">1</div>
+        <div class="step-content">
+          <h3>勾選教材</h3>
+          <p>勾選教材列最左側的核取方塊，可多選。點擊標題列核取方塊可全選。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num y">2</div>
+        <div class="step-content">
+          <h3>選擇操作</h3>
+          <p>勾選後上方批次工具列出現：<br>
+          • <strong>🗑️ 刪除所選</strong> — 一次刪除所有勾選的教材<br>
+          • <strong>📂 移動到此類別</strong> — 從下拉選單選擇目標類別後點擊移動</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num y">3</div>
+        <div class="step-content">
+          <h3>取消選取</h3>
+          <p>點擊「取消選取」清除所有勾選狀態。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 6. 類別管理 -->
+  <section class="section" id="category">
+    <div class="section-header">
+      <span class="section-num blue">06</span>
+      <h2>類別管理</h2>
+    </div>
+
+    <div class="feature-grid" style="margin-bottom:16px;">
+      <div class="feature-card">
+        <div class="feature-icon">➕</div>
+        <h3>新增自訂類別</h3>
+        <p>在「圖示」欄填入 emoji，「類別名稱」填入名稱後點「新增類別 ＋」。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✏️</div>
+        <h3>重新命名類別</h3>
+        <p>點擊類別標籤上的 ✏ 鉛筆圖示，輸入新名稱後按 Enter 確認。所有教材的類別欄位會同步更新。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✕</div>
+        <h3>刪除自訂類別</h3>
+        <p>點擊類別標籤右側的 ✕，須先移除該類別內所有教材才可刪除。</p>
+      </div>
+    </div>
+
+    <div class="tip-box green">
+      <span class="tip-icon">🔒</span>
+      <p><strong>預設類別</strong>（三年級、四年級、五年級、六年級、教學應用、休閒動動腦）<strong>無法刪除</strong>，只能重新命名。</p>
+    </div>
+
+    <div class="tip-box yellow" style="margin-top:8px;">
+      <span class="tip-icon">⚠️</span>
+      <p>重新命名類別時，網站會自動將該類別內所有教材的分類欄位一起更新，<strong>不需要手動逐筆修改</strong>。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 7. 匯出備份 -->
+  <section class="section" id="export">
+    <div class="section-header">
+      <span class="section-num blue">07</span>
+      <h2>匯出與備份</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num b">A</div>
+        <div class="step-content">
+          <h3>📋 匯出資料（JSON 備份）</h3>
+          <p>點擊後自動複製全部教材清單（JSON 格式）到剪貼簿，貼給 Claude 保存，或另存成 .json 檔。<strong>建議每次大幅更動前都先備份一次。</strong></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num b">B</div>
+        <div class="step-content">
+          <h3>打包匯出（管理員專屬）</h3>
+          <p>右側欄位提供四種格式打包所有教材清單：</p>
+          <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;">
+            <span class="pill b">⬇ Markdown (.md)</span>
+            <span class="pill b">⬇ 網頁 (.html)</span>
+            <span class="pill b">🖨 PDF（列印）</span>
+            <span class="pill b">⬇ Word (.doc)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 8. 維護須知 -->
+  <section class="section" id="tips">
+    <div class="section-header">
+      <span class="section-num pink">08</span>
+      <h2>維護須知與常見問題</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,107,157,0.1);border-color:rgba(255,107,157,0.3);color:#ff6b9d;">!</div>
+        <div class="step-content">
+          <h3>修改程式碼後，前台圖示沒有更新？</h3>
+          <p>網站資料以 <strong>Firestore 雲端為主</strong>，程式碼裡的預設資料只是備用。若需修改圖示，請告知 Claude 更新 <code style="font-family:'IBM Plex Mono';font-size:12px;background:rgba(255,255,255,0.06);padding:1px 6px;border-radius:4px;">MATERIAL_ICON_MAP</code>，每次資料載入時會自動套用。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,107,157,0.1);border-color:rgba(255,107,157,0.3);color:#ff6b9d;">!</div>
+        <div class="step-content">
+          <h3>音效沒有聲音？</h3>
+          <p>瀏覽器安全規定需要先有互動才能播音。請先在頁面<strong>任意點擊一下</strong>，再移動到教材方塊即可聽到。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,107,157,0.1);border-color:rgba(255,107,157,0.3);color:#ff6b9d;">!</div>
+        <div class="step-content">
+          <h3>教材突然消失？</h3>
+          <p>可能是類別名稱不一致導致。請先用 <kbd>Ctrl+Shift+R</kbd> 強制重新整理，若仍無法顯示，請聯絡 Claude 並提供最近一次的備份 JSON 還原資料。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(255,107,157,0.1);border-color:rgba(255,107,157,0.3);color:#ff6b9d;">!</div>
+        <div class="step-content">
+          <h3>同步狀態顯示「⚠️ 儲存失敗」？</h3>
+          <p>可能是網路問題或 Firestore 連線逾時。重新整理頁面後再試一次，若持續失敗請聯絡維護者。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 9. 聯絡 -->
+  <section class="section" id="contact">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2>聯絡資訊</h2>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">👤</div>
+        <h3>設計者</h3>
+        <p>陳賢宗（黑熊老師）<br>台灣 · 國小自然科教師</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📧</div>
+        <h3>Email</h3>
+        <p><a href="mailto:prayer168@gmail.com" style="color:var(--blue);text-decoration:none;">prayer168@gmail.com</a></p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌐</div>
+        <h3>網站</h3>
+        <p><a href="https://prayer168.github.io/science-portal/" target="_blank" style="color:var(--blue);text-decoration:none;">science-portal</a></p>
+      </div>
+      <div class="feature-card" id="qr-card" onclick="document.getElementById('qr-overlay').style.display='flex'" style="cursor:pointer;">
+        <div class="feature-icon">🔳</div>
+        <h3>QR Code</h3>
+        <p style="color:var(--blue);">點擊放大顯示網站 QR Code</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="manual-footer">
+    © 2026 陳賢宗（黑熊老師）版權所有 · 本手冊隨網站功能持續更新
+  </div>
+
+</main>
+</div>
+
+<script>
+// 側欄 active 追蹤
+const sections = document.querySelectorAll('.section, .hero');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const id = e.target.id;
+      const active = document.querySelector(`.nav-item[href="#${id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+</script>
+
+<!-- QR Code Overlay -->
+<div id="qr-overlay" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:20px;backdrop-filter:blur(6px);">
+  <div onclick="event.stopPropagation()" style="background:#0c0f1a;border:1px solid rgba(61,255,160,0.2);border-radius:20px;padding:36px;display:flex;flex-direction:column;align-items:center;gap:16px;">
+    <p style="font-family:'Syne',sans-serif;font-size:14px;color:#3dffa0;letter-spacing:2px;">🐻 黑熊老師自然科學數位教材中心</p>
+    <div id="qr-canvas" style="background:#fff;padding:16px;border-radius:12px;"></div>
+    <p style="font-size:12px;color:#7a84a8;font-family:'IBM Plex Mono',monospace;">prayer168.github.io/science-portal</p>
+  </div>
+  <p style="font-size:12px;color:#7a84a8;">點擊任意處關閉</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+let qrGenerated = false;
+document.getElementById('qr-card').addEventListener('click', function() {
+  if (!qrGenerated) {
+    new QRCode(document.getElementById('qr-canvas'), {
+      text: 'https://prayer168.github.io/science-portal/',
+      width: 260, height: 260,
+      colorDark: '#000000', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    qrGenerated = true;
+  }
+  document.getElementById('qr-overlay').style.display = 'flex';
+});
+</script>
+</body>
+</html>
